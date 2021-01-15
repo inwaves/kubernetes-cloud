@@ -1,0 +1,73 @@
+Name:                 tensorflow-jupyter-5b75b96b78-qvzfd
+Namespace:            tenant-andreialexandru
+Priority:             1000000
+Priority Class Name:  normal
+Node:                 gbd6a45/10.135.45.143
+Start Time:           Tue, 12 Jan 2021 17:29:54 +0200
+Labels:               app.kubernetes.io/name=tensorflow-jupyter
+                      pod-template-hash=5b75b96b78
+Annotations:          cni.projectcalico.org/podIP: 10.140.102.112/32
+                      cni.projectcalico.org/podIPs: 10.140.102.112/32
+                      container.apparmor.security.beta.kubernetes.io/tf: runtime/default
+                      kubernetes.io/psp: restricted
+                      seccomp.security.alpha.kubernetes.io/pod: docker/default
+Status:               Running
+IP:                   10.140.102.112
+IPs:
+  IP:           10.140.102.112
+Controlled By:  ReplicaSet/tensorflow-jupyter-5b75b96b78
+Containers:
+  tf:
+    Container ID:   docker://ca39a4775bef421941f721c3dd61688212e4481b39477b4ef18d43bd7a2818c4
+    Image:          tensorflow/tensorflow:1.15.0-gpu-py3-jupyter
+    Image ID:       docker-pullable://tensorflow/tensorflow@sha256:5716122b8971c9aa07de3dacee92e3c1934a42877d49a5c1ff5344d4ef969278
+    Port:           8888/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Tue, 12 Jan 2021 17:30:04 +0200
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:             15
+      memory:          128Gi
+      nvidia.com/gpu:  4
+    Requests:
+      cpu:             15
+      memory:          128Gi
+      nvidia.com/gpu:  4
+    Liveness:          http-get http://:notebook/ delay=15s timeout=10s period=15s #success=1 #failure=3
+    Readiness:         tcp-socket :notebook delay=5s timeout=1s period=10s #success=1 #failure=3
+    Environment:       <none>
+    Mounts:
+      /tf/notebooks from storage (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-cmb8d (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  storage:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  jupyter-pv-claim
+    ReadOnly:   false
+  default-token-cmb8d:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-cmb8d
+    Optional:    false
+QoS Class:       Guaranteed
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                 node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason                  Age    From                     Message
+  ----     ------                  ----   ----                     -------
+  Warning  FailedScheduling        3m38s  default-scheduler        0/1189 nodes are available: 1055 Insufficient nvidia.com/gpu, 122 node(s) were unschedulable, 3 node(s) didn't match node selector, 561 Insufficient cpu, 799 Insufficient memory.
+  Warning  FailedScheduling        3m38s  default-scheduler        0/1189 nodes are available: 1055 Insufficient nvidia.com/gpu, 122 node(s) were unschedulable, 3 node(s) didn't match node selector, 561 Insufficient cpu, 799 Insufficient memory.
+  Warning  FailedScheduling        3m38s  default-scheduler        0/1189 nodes are available: 1055 Insufficient nvidia.com/gpu, 122 node(s) were unschedulable, 3 node(s) didn't match node selector, 561 Insufficient cpu, 799 Insufficient memory.
+  Normal   Scheduled               3m19s  default-scheduler        Successfully assigned tenant-andreialexandru/tensorflow-jupyter-5b75b96b78-qvzfd to gbd6a45
+  Normal   SuccessfulAttachVolume  3m20s  attachdetach-controller  AttachVolume.Attach succeeded for volume "pvc-a277acb8-69f0-4f09-87d8-0752ac8c1ca4"
+  Normal   Pulled                  3m10s  kubelet                  Container image "tensorflow/tensorflow:1.15.0-gpu-py3-jupyter" already present on machine
+  Normal   Created                 3m10s  kubelet                  Created container tf
+  Normal   Started                 3m10s  kubelet                  Started container tf
