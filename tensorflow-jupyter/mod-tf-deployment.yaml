@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: tf
-          image: tensorflow/tensorflow:1.15.0-gpu-py3-jupyter
+          image: tensorflow/tensorflow:2.2.2-gpu-py3-jupyter
 
           ports:
             - name: notebook
